@@ -1,0 +1,18 @@
+{
+  "name": "google-map",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#master"
+  },
+  "homepage": "https://github.com/Polymer/google-map",
+  "_release": "857bc6e92c",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "857bc6e92cefe504d14cc83d1328893d16f14b87"
+  },
+  "_source": "git://github.com/Polymer/google-map.git",
+  "_target": "master",
+  "_originalSource": "Polymer/google-map",
+  "_direct": true
+}
