@@ -298,7 +298,7 @@ Fired when the Maps API has fully loaded.
   <div id="map"></div>
 
   <content id="markers" select="google-map-marker"></content>
-
+  <content id="polylines" select="google-map-polyline"></content>
 </template>
 <script>
 
@@ -410,6 +410,7 @@ Fired when the Maps API has fully loaded.
 
     created: function() {
       this.markers = [];
+      this.polylines = [];
     },
 
     attached: function() {
@@ -421,6 +422,7 @@ Fired when the Maps API has fully loaded.
 
       this.updateCenter();
       this.updateMarkers();
+      this.updatePolylines();
 
       this.fire('google-map-ready');
     },
@@ -464,6 +466,21 @@ Fired when the Maps API has fully loaded.
         }
       }
     },
+
+    updatePolylines: function() {
+      this.polylines = Array.prototype.slice.call(
+          this.$.polylines.getDistributedNodes());
+
+      this.onMutation(this, this.updatePolylines); // Watch for future updates.
+
+      // Set the map on each marker and zoom viewport to ensure they're in view.
+      if (this.polylines.length && this.map) {
+        for (var i = 0, m; m = this.polylines[i]; ++i) {
+          m.map = this.map;
+        }
+      }
+    },
+
 
     /**
      * Clears all markers from the map.

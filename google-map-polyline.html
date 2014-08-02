@@ -1,0 +1,76 @@
+<!-- Copyright (c) 2014 Google Inc. All rights reserved. -->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+The `google-map-polyline` element represents a map polyline. It is used as a
+child of `google-map`.
+
+<b>Example</b>:
+
+    <google-map latitude="37.77493" longitude="-122.41942">
+      <google-map-polyline path='[{"lat": 37.779, "lng": -122.3892},{"lat": 37.77493, "lng": -122.41942}]"></google-map-polyline>
+    </google-map>
+
+@element google-map-polyline
+@status alpha
+@homepage http://googlewebcomponents.github.io/google-map
+-->
+<polymer-element name="google-map-polyline" attributes="path">
+<template>
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
+</template>
+<script>
+  (function() {
+
+    Polymer('google-map-polyline', {
+
+      /**
+       * A Google Maps Polyline object.
+       *
+       * @property polyline
+       * @type google.maps.Polyline
+       * @default null
+       */
+      polyline: null,
+
+      /**
+       * The Google map object.
+       *
+       * @property map
+       * @type google.maps.Map
+       * @default null
+       */
+      map: null,
+
+      created: function() {
+        this.path = [];
+      },
+
+      mapChanged: function() {
+        if (this.map && this.map instanceof google.maps.Map) {
+          this.mapReady();
+        }
+      },
+
+      pathChanged: function() {
+        if (this.polyline) {
+          this.polyline.setPath(this.path);
+        }
+      },
+
+      mapReady: function() {
+        this.polyline = new google.maps.Polyline({
+          map: this.map,
+          path: this.path,
+        });
+      }
+    });
+  })();
+
+</script>
+</polymer-element>
